@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fbf3e4;
+  color: #231c10;
+}
+
+.card-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -12px rgba(15, 61, 46, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c7a59;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: #f5ead5;
+}
+
+:focus-visible {
+  outline: 2px solid #1c7a59;
+  outline-offset: 2px;
+}
