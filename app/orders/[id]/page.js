@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
+import Skeleton from "@/components/Skeleton";
 
 export default function OrderDetailPage() {
   const { id } = useParams();
@@ -16,7 +17,16 @@ export default function OrderDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p className="text-center py-16 text-ink/50">جارِ التحميل...</p>;
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-8 space-y-4">
+        <Skeleton className="h-8 w-40" />
+        <Skeleton className="h-20 w-full" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-24 w-full" />
+      </div>
+    );
+  }
   if (!order || order.error) {
     return <p className="text-center py-16 text-ink/50">لم يتم العثور على الطلب</p>;
   }

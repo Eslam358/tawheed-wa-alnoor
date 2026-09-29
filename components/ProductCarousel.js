@@ -1,35 +1,30 @@
 "use client";
-
+import "@/app/globals.css"
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export default function ProductCarousel({ products = [] }) {
   if (products.length === 0) return null;
 
   return (
     <Swiper
-      modules={[EffectCoverflow, Autoplay, Pagination]}
-      effect="coverflow"
-      grabCursor
-      centeredSlides
+      modules={[Autoplay, Pagination, Navigation]}
       loop={products.length > 4}
-      slidesPerView="auto"
-      spaceBetween={16}
-      coverflowEffect={{
-        rotate: 25,
-        stretch: 0,
-        depth: 130,
-        modifier: 1,
-        slideShadows: false,
+      slidesPerView={2}
+      spaceBetween={14}
+      breakpoints={{
+        640: { slidesPerView: 3},
+        1024: { slidesPerView: 4 },
       }}
       autoplay={{ delay: 2200, disableOnInteraction: false, pauseOnMouseEnter: true }}
       pagination={{ clickable: true }}
-      className="!pb-12 !px-4"
+      navigation
+      className="!pb-10 !px-4  md:!mx-5"
     >
       {products.map((product) => {
         const hasDiscount =
@@ -39,14 +34,10 @@ export default function ProductCarousel({ products = [] }) {
           : 0;
 
         return (
-          <SwiperSlide
-            key={product._id}
-            style={{ width: "220px" }}
-            className="pb-2"
-          >
+          <SwiperSlide key={product._id} className="pb-2">
             <Link
               href={`/products/${product._id}`}
-              className="block rounded-xl border border-sand-200 bg-white overflow-hidden shadow-md hover:shadow-lg transition"
+              className="block rounded-xl border border-sand-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition"
             >
               <div className="relative aspect-square bg-sand-100">
                 {product.images?.[0] ? (

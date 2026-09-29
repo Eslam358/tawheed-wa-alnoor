@@ -4,6 +4,8 @@ import Product from "@/models/Product";
 import Category from "@/models/Category";
 import ProductCard from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
+import CategoryCard from "@/components/CategoryCard";
+import TNLogo from "@/components/TNLogo";
 
 export const dynamic = "force-dynamic";
 
@@ -38,84 +40,45 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-brand-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 md:py-14">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
-                خصومات تصل إلى ٥٠٪
-              </h1>
-              <p className="text-brand-100/80 mb-6 max-w-md">
-                على الملابس، الأجهزة المنزلية، الأثاث، الرياضة وأدوات المكتب —
-                عروض يومية وتوصيل سريع لباب بيتك.
-              </p>
-              <div className="flex gap-3">
-                <Link
-                  href="/offers"
-                  className="rounded-md bg-brand-500 px-6 py-3 font-bold text-brand-950 hover:bg-brand-200 transition"
-                >
-                  تسوّق الآن
-                </Link>
-                <Link
-                  href="/products"
-                  className="rounded-md border border-white/30 px-6 py-3 font-bold text-white hover:bg-white/10 transition"
-                >
-                  كل الأقسام
-                </Link>
-              </div>
+      <section className="relative bg-brand-900 text-white overflow-hidden">
+        <img
+          src="/hero-banner.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />
+        <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2 mb-4">
+              <TNLogo size={34} className="rounded-lg" />
+              <span className="text-sm text-brand-200 font-medium">
+                التوحيد والنور — مكان عِشناه وكبرنا معاه
+              </span>
             </div>
-            <div className="hidden md:flex justify-center">
-              <div className="grid grid-cols-3 gap-3">
-                {["👗", "👔", "🧸", "🍳", "🔌", "🏀"].map((emoji, i) => (
-                  <div
-                    key={i}
-                    className="h-24 w-24 rounded-xl bg-white/10 flex items-center justify-center text-4xl"
-                  >
-                    {emoji}
-                  </div>
-                ))}
-              </div>
+            <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
+              خصومات تصل إلى ٥٠٪
+            </h1>
+            <p className="text-brand-100/80 mb-6 max-w-md">
+              على الملابس، الأجهزة المنزلية، الأثاث، الرياضة وأدوات المكتب —
+              عروض يومية وتوصيل سريع لباب بيتك.
+            </p>
+            <div className="flex gap-3">
+              <Link
+                href="/offers"
+                className="rounded-md bg-brand-500 px-6 py-3 font-bold text-brand-950 hover:bg-brand-200 transition"
+              >
+                تسوّق الآن
+              </Link>
+              <Link
+                href="/products"
+                className="rounded-md border border-white/30 px-6 py-3 font-bold text-white hover:bg-white/10 transition"
+              >
+                كل الأقسام
+              </Link>
             </div>
           </div>
         </div>
       </section>
-
-
-      {/* Categories */}
-      {categories.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-10">
-          <h2 className="font-display text-xl font-bold text-ink mb-5">
-            تسوّق حسب القسم
-          </h2>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-            {categories.map((cat) => (
-              <Link
-                key={cat._id}
-                href={`/products?category=${cat._id}`}
-                className="card-hover group rounded-lg border border-sand-200 bg-white overflow-hidden text-center"
-              >
-                <div className="aspect-[4/3] bg-sand-100 overflow-hidden">
-                  {cat.image ? (
-                    <img
-                      // src="https://m.media-amazon.com/images/I/81qy6cWw4wL.jpg"
-                      src={cat.image}
-                      alt={cat.name}
-                      
-                      className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-4xl">
-                      {cat.icon || "🏷️"}
-                    </div>
-                  )}
-                </div>
-                <span className="block text-sm font-medium py-2 px-1">{cat.name}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
 
       {/* كاروسيل ثلاثي الأبعاد يتحرك تلقائياً */}
       {featured.length > 0 && (
@@ -127,6 +90,19 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* Categories */}
+      {categories.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-10">
+          <h2 className="font-display text-xl font-bold text-ink mb-5">
+            تسوّق حسب القسم
+          </h2>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+            {categories.map((cat) => (
+              <CategoryCard key={cat._id} category={cat} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Deals */}
       {deals.length > 0 && (

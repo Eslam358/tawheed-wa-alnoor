@@ -66,6 +66,9 @@ export default function Navbar() {
               {session ? (
                 <>
                   <Link href="/orders" className="hover:text-brand-200 transition">
+                    طلباتي
+                  </Link>
+                  <Link href="/account" className="hover:text-brand-200 transition">
                     👤 حسابي
                   </Link>
                   <button
@@ -148,6 +151,9 @@ export default function Navbar() {
               <>
                 <Link href="/orders" className="block py-1" onClick={() => setMenuOpen(false)}>
                   طلباتي
+                </Link>
+                <Link href="/account" className="block py-1" onClick={() => setMenuOpen(false)}>
+                  👤 إعدادات الحساب
                 </Link>
                 <button onClick={() => signOut({ callbackUrl: "/" })} className="block py-1">
                   تسجيل الخروج

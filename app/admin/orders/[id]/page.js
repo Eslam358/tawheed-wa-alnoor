@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Skeleton from "@/components/Skeleton";
 
 const statuses = ["قيد المراجعة", "قيد التجهيز", "تم الشحن", "تم التسليم", "ملغي"];
 
@@ -46,7 +47,16 @@ export default function AdminOrderDetailPage() {
     setSaving(false);
   }
 
-  if (loading) return <p className="text-ink/50">جارِ التحميل...</p>;
+  if (loading) {
+    return (
+      <div className="max-w-2xl space-y-4">
+        <Skeleton className="h-8 w-40" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-24 w-full" />
+      </div>
+    );
+  }
   if (!order || order.error) return <p className="text-ink/50">لم يتم العثور على الطلب</p>;
 
   return (

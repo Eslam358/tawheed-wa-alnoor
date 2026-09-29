@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Skeleton from "@/components/Skeleton";
 
 const statusColors = {
   "قيد المراجعة": "bg-yellow-100 text-yellow-800",
@@ -23,7 +24,23 @@ export default function OrdersPage() {
   }, []);
 
   if (loading) {
-    return <p className="text-center py-16 text-ink/50">جارِ التحميل...</p>;
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-8">
+        <Skeleton className="h-8 w-32 mb-6" />
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="rounded-xl border border-sand-200 bg-white p-4">
+              <div className="flex justify-between mb-2">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-5 w-20 rounded-full" />
+              </div>
+              <Skeleton className="h-3 w-28 mb-3" />
+              <Skeleton className="h-5 w-16" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (orders.length === 0) {

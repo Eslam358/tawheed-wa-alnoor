@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Skeleton from "@/components/Skeleton";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
@@ -36,7 +37,17 @@ export default function AdminProductsPage() {
       </div>
 
       {loading ? (
-        <p className="text-ink/50">جارِ التحميل...</p>
+        <div className="rounded-xl border border-sand-200 bg-white p-4 space-y-3">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="flex items-center gap-3">
+              <Skeleton className="h-10 w-10 shrink-0" />
+              <Skeleton className="h-4 flex-1" />
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-4 w-12" />
+            </div>
+          ))}
+        </div>
       ) : (
         <div className="rounded-xl border border-sand-200 bg-white overflow-x-auto">
           <table className="w-full text-sm min-w-[600px]">
