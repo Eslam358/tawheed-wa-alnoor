@@ -29,9 +29,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-brand-100 mb-3">تواصل معنا</h4>
             <ul className="space-y-2 text-brand-100/70">
-              <li>📞 +201000000000</li>
+              <li>📞 +201002679358</li>
               <li>✉️ support@tawheed-noor.com</li>
-              <li>🚚 توصيل لكل محافظات مصر</li>
+              <li>🚚 توصيل لكل مدن القاهره والجيزه</li>
             </ul>
           </div>
         </div>
@@ -45,7 +45,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="text-brand-200 hover:text-white hover:underline"
           >
-            إسلام فايز
+             إسلام فايز
           </a>
         </p>
       </div>
