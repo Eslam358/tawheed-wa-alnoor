@@ -96,7 +96,7 @@ export default function ProductForm({ initialProduct = null }) {
           name="price"
           value={form.price}
           onChange={updateField}
-          placeholder="السعر (ر.س)"
+          placeholder="السعر (ج.م)"
           className="rounded-lg border border-sand-200 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sale-600"
         />
         <input

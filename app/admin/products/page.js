@@ -61,7 +61,7 @@ export default function AdminProductsPage() {
                     <span className="line-clamp-1">{p.name}</span>
                   </td>
                   <td className="p-3">{p.category?.name || "—"}</td>
-                  <td className="p-3">{p.price} ر.س</td>
+                  <td className="p-3">{p.price} ج.م</td>
                   <td className="p-3">{p.stock}</td>
                   <td className="p-3 flex gap-2">
                     <Link

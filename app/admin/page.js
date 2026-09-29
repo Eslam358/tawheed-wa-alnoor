@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
     { label: "إجمالي المنتجات", value: stats.productsCount, icon: "🛍️" },
     { label: "إجمالي الطلبات", value: stats.ordersCount, icon: "📦" },
     { label: "المستخدمون", value: stats.usersCount, icon: "👥" },
-    { label: "الإيرادات التقديرية", value: `${stats.revenue} ر.س`, icon: "💰" },
+    { label: "الإيرادات التقديرية", value: `${stats.revenue} ج.م`, icon: "💰" },
   ];
 
   return (
@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
               <tr key={o._id} className="border-t border-sand-100">
                 <td className="p-3">{o.user?.name || "—"}</td>
                 <td className="p-3">{o.status}</td>
-                <td className="p-3">{o.totalPrice} ر.س</td>
+                <td className="p-3">{o.totalPrice} ج.م</td>
               </tr>
             ))}
             {stats.recentOrders.length === 0 && (

@@ -156,16 +156,16 @@ export default function CheckoutPage() {
           {items.map((i) => (
             <div key={i.productId} className="flex justify-between text-sm text-ink/70">
               <span>{i.name} × {i.quantity}</span>
-              <span>{i.price * i.quantity} ر.س</span>
+              <span>{i.price * i.quantity} ج.م</span>
             </div>
           ))}
           <div className="flex justify-between text-sm border-t border-sand-200 pt-2">
             <span>الشحن</span>
-            <span>{shipping === 0 ? "مجاني" : `${shipping} ر.س`}</span>
+            <span>{shipping === 0 ? "مجاني" : `${shipping} ج.م`}</span>
           </div>
           <div className="flex justify-between font-bold text-brand-900 text-lg border-t border-sand-200 pt-2">
             <span>الإجمالي</span>
-            <span>{total} ر.س</span>
+            <span>{total} ج.م</span>
           </div>
 
           {error && <p className="text-red-600 text-sm">{error}</p>}

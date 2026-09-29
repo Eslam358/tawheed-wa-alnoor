@@ -36,13 +36,18 @@ export default function ProductCard({ product }) {
           <h3 className="line-clamp-2 text-sm font-medium text-ink min-h-[2.5rem]">
             {product.name}
           </h3>
+          {product.description && (
+            <p className="line-clamp-2 text-xs text-ink/50 mt-1 min-h-[2rem]">
+              {product.description}
+            </p>
+          )}
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-ink font-bold">
-              {product.price} ر.س
+              {product.price} ج.م
             </span>
             {hasDiscount && (
               <span className="text-xs text-ink/40 line-through">
-                {product.compareAtPrice} ر.س
+                {product.compareAtPrice} ج.م
               </span>
             )}
           </div>

@@ -55,16 +55,16 @@ export default function OrderDetailPage() {
         {order.items.map((item, i) => (
           <div key={i} className="flex justify-between text-sm">
             <span>{item.name} × {item.quantity}</span>
-            <span>{item.price * item.quantity} ر.س</span>
+            <span>{item.price * item.quantity} ج.م</span>
           </div>
         ))}
         <div className="flex justify-between text-sm border-t border-sand-200 pt-2">
           <span>الشحن</span>
-          <span>{order.shippingPrice === 0 ? "مجاني" : `${order.shippingPrice} ر.س`}</span>
+          <span>{order.shippingPrice === 0 ? "مجاني" : `${order.shippingPrice} ج.م`}</span>
         </div>
         <div className="flex justify-between font-bold text-brand-900 border-t border-sand-200 pt-2">
           <span>الإجمالي</span>
-          <span>{order.totalPrice} ر.س</span>
+          <span>{order.totalPrice} ج.م</span>
         </div>
       </div>
 

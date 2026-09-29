@@ -3,6 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import ProductCard from "@/components/ProductCard";
+import ProductCarousel from "@/components/ProductCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -79,6 +80,7 @@ export default async function HomePage() {
         </div>
       </section>
 
+
       {/* Categories */}
       {categories.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-10">
@@ -90,15 +92,41 @@ export default async function HomePage() {
               <Link
                 key={cat._id}
                 href={`/products?category=${cat._id}`}
-                className="card-hover flex flex-col items-center gap-2 rounded-lg border border-sand-200 bg-white p-4 text-center"
+                className="card-hover group rounded-lg border border-sand-200 bg-white overflow-hidden text-center"
               >
-                <span className="text-3xl">{cat.icon || "🏷️"}</span>
-                <span className="text-sm font-medium">{cat.name}</span>
+                <div className="aspect-[4/3] bg-sand-100 overflow-hidden">
+                  {cat.image ? (
+                    <img
+                      // src="https://m.media-amazon.com/images/I/81qy6cWw4wL.jpg"
+                      src={cat.image}
+                      alt={cat.name}
+                      
+                      className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-4xl">
+                      {cat.icon || "🏷️"}
+                    </div>
+                  )}
+                </div>
+                <span className="block text-sm font-medium py-2 px-1">{cat.name}</span>
               </Link>
             ))}
           </div>
         </section>
       )}
+
+
+      {/* كاروسيل ثلاثي الأبعاد يتحرك تلقائياً */}
+      {featured.length > 0 && (
+        <section className="bg-sand-100/60 py-8">
+          <h2 className="font-display text-xl font-bold text-ink text-center mb-5">
+            ✨ منتجات هتعجبك
+          </h2>
+          <ProductCarousel products={featured} />
+        </section>
+      )}
+
 
       {/* Deals */}
       {deals.length > 0 && (

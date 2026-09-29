@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useCart } from "@/components/CartContext";
+import TNLogo from "@/components/TNLogo";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -35,24 +35,13 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex h-16 items-center justify-between gap-4">
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-900 font-black text-lg">
-                <Image
-                  src="/icon_nt.png"
-                  alt="TN Store"
-                  width={40}
-                  height={40}
-                  className="rounded-lg"
-                />
-              </span>
+              <TNLogo size={40} className="rounded-lg" />
               <span className="font-display font-extrabold leading-tight">
                 <span className="block text-lg">التوحيد والنور</span>
               </span>
             </Link>
 
-            <form
-              onSubmit={handleSearch}
-              className="hidden md:flex flex-1 max-w-2xl"
-            >
+            <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl">
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -76,10 +65,7 @@ export default function Navbar() {
               )}
               {session ? (
                 <>
-                  <Link
-                    href="/orders"
-                    className="hover:text-brand-200 transition"
-                  >
+                  <Link href="/orders" className="hover:text-brand-200 transition">
                     👤 حسابي
                   </Link>
                   <button
@@ -131,18 +117,13 @@ export default function Navbar() {
                 🔍
               </button>
             </form>
-            <Link
-              href="/products"
-              className="block py-1"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link href="/products" className="block py-1" onClick={() => setMenuOpen(false)}>
               كل الأقسام
             </Link>
-            <Link
-              href="/offers"
-              className="block py-1 text-sale-500 font-semibold"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link href="/branches" className="block py-1" onClick={() => setMenuOpen(false)}>
+              📍 فروعنا
+            </Link>
+            <Link href="/offers" className="block py-1 text-sale-500 font-semibold" onClick={() => setMenuOpen(false)}>
               🔥 العروض
             </Link>
             {categories.map((cat) => (
@@ -155,44 +136,25 @@ export default function Navbar() {
                 {cat.icon} {cat.name}
               </Link>
             ))}
-            <Link
-              href="/cart"
-              className="block py-1"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link href="/cart" className="block py-1" onClick={() => setMenuOpen(false)}>
               السلة ({itemsCount})
             </Link>
             {session?.user?.role === "admin" && (
-              <Link
-                href="/admin"
-                className="block py-1"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link href="/admin" className="block py-1" onClick={() => setMenuOpen(false)}>
                 لوحة التحكم
               </Link>
             )}
             {session ? (
               <>
-                <Link
-                  href="/orders"
-                  className="block py-1"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/orders" className="block py-1" onClick={() => setMenuOpen(false)}>
                   طلباتي
                 </Link>
-                <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="block py-1"
-                >
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="block py-1">
                   تسجيل الخروج
                 </button>
               </>
             ) : (
-              <Link
-                href="/login"
-                className="block py-1"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link href="/login" className="block py-1" onClick={() => setMenuOpen(false)}>
                 تسجيل الدخول
               </Link>
             )}
@@ -204,11 +166,11 @@ export default function Navbar() {
       <div className="hidden md:block bg-sand-50 border-b border-sand-200">
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex items-center gap-6 h-11 text-sm text-ink/80 overflow-x-auto">
-            <Link
-              href="/products"
-              className="shrink-0 font-medium hover:text-brand-700"
-            >
+            <Link href="/products" className="shrink-0 font-medium hover:text-brand-700">
               كل الأقسام
+            </Link>
+            <Link href="/branches" className="shrink-0 hover:text-brand-700 transition">
+              📍 فروعنا
             </Link>
             {categories.map((cat) => (
               <Link
@@ -219,10 +181,7 @@ export default function Navbar() {
                 {cat.name}
               </Link>
             ))}
-            <Link
-              href="/offers"
-              className="shrink-0 font-bold text-sale-500 hover:text-sale-600 transition"
-            >
+            <Link href="/offers" className="shrink-0 font-bold text-sale-500 hover:text-sale-600 transition">
               🔥 العروض
             </Link>
           </div>

@@ -35,3 +35,25 @@ body {
   outline: 2px solid #1c7a59;
   outline-offset: 2px;
 }
+
+@keyframes float-cart {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pop-badge {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+.floating-cart {
+  animation: float-cart 2.6s ease-in-out infinite;
+}
+.floating-cart-badge {
+  animation: pop-badge 0.3s ease-out;
+}
+
+.swiper {
+  --swiper-pagination-color: #155a43;
+  --swiper-pagination-bullet-inactive-color: #edE0c4;
+  --swiper-pagination-bullet-inactive-opacity: 1;
+}

@@ -58,7 +58,7 @@ export default function AdminOrdersPage() {
                   <td className="p-3">
                     {o.paymentStatus === "paid" ? "✓ مدفوع" : "قيد الانتظار"}
                   </td>
-                  <td className="p-3">{o.totalPrice} ر.س</td>
+                  <td className="p-3">{o.totalPrice} ج.م</td>
                   <td className="p-3 text-ink/50">
                     {new Date(o.createdAt).toLocaleDateString("ar-EG")}
                   </td>

@@ -70,11 +70,11 @@ export default function ProductDetailClient({ product }) {
 
         <div className="flex items-baseline gap-3 mb-4">
           <span className="text-2xl font-bold text-brand-900">
-            {product.price} ر.س
+            {product.price} ج.م
           </span>
           {hasDiscount && (
             <span className="text-base text-ink/40 line-through">
-              {product.compareAtPrice} ر.س
+              {product.compareAtPrice} ج.م
             </span>
           )}
         </div>

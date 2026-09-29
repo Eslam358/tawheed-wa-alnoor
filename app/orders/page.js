@@ -69,7 +69,7 @@ export default function OrdersPage() {
               {new Date(order.createdAt).toLocaleDateString("ar-EG")}
             </p>
             <p className="text-brand-900 font-bold mt-2">
-              {order.totalPrice} ر.س
+              {order.totalPrice} ج.م
             </p>
           </Link>
         ))}
