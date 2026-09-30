@@ -54,14 +54,14 @@ export default async function HomePage() {
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-4">
           {/* <TNLogo size={34} className="rounded-lg" />*/}
-              <span className="text-sm text-brand-300 font-medium">
+              <span className="text-sm text-brand-200 font-medium">
                  مكان حبِناه وكبرنا معاه
               </span>
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
               خصومات تصل إلى ٥٠٪
             </h1>
-            <p className="text-brand-100/50 mb-6 max-w-md">
+            <p className="text-brand-200/80 mb-6 max-w-md">
               على الملابس، الأجهزة المنزلية، الأثاث، الرياضة وأدوات المكتب —
               عروض يومية وتوصيل سريع لباب بيتك.
             </p>
