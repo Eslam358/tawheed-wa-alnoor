@@ -44,11 +44,11 @@ export default async function HomePage() {
          // src="/hero-banner.jpg"
             src="/hero_banner1.png"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-100"
+          className="absolute inset-0 h-full w-full object-cover opacity-90"
         />
 
 
-            <div className="absolute inset-0 bg-gradient-to-l from-brand-950/50 via-brand-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-brand-950/60 via-brand-900/30 to-transparent" />
             
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
