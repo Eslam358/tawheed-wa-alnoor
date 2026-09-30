@@ -44,24 +44,24 @@ export default async function HomePage() {
          // src="/hero-banner.jpg"
             src="/hero_banner1.png"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-90"
+          className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
           {/*<div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />*/}
-<div className="absolute inset-0 bg-gradient-to-l from-brand-950/45 via-brand-900/20 to-brand-900/10" />
+<div className="absolute inset-0 bg-gradient-to-l from-brand-950/55 via-brand-900/30 to-brand-900/20" />
           {/*  <div className="absolute inset-0 bg-gradient-to-l from-brand-950/60 via-brand-900/30 to-transparent" />*/}
             
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-4">
-          {/* <TNLogo size={34} className="rounded-lg" />*/}
-              <span className="text-sm text-brand-200 font-medium">
+         {/*   <div className="flex items-center gap-2 mb-4">
+           <TNLogo size={34} className="rounded-lg" />*/}
+  {/* <span className="text-sm text-brand-200 font-medium">
                  مكان حبِناه وكبرنا معاه
               </span>
-            </div>
+            </div>*/}
             <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
               خصومات تصل إلى ٥٠٪
             </h1>
-            <p className="text-brand-200/80 mb-6 max-w-md">
+            <p className="text-brand-100/80 mb-6 max-w-md">
               على الملابس، الأجهزة المنزلية، الأثاث، الرياضة وأدوات المكتب —
               عروض يومية وتوصيل سريع لباب بيتك.
             </p>
