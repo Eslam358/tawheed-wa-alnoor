@@ -36,7 +36,6 @@ async function getData() {
 
 export default async function HomePage() {
   const { featured, deals, categories } = await getData();
-
   return (
     <div>
       {/* Hero */}

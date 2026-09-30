@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCart from "@/components/FloatingCart";
+import SplashScreen from "@/components/tools/Splashscreen"
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="ar" dir="rtl" className={cairo.variable}>
       <body className="font-body bg-sand-50 text-ink flex min-h-screen flex-col">
         <Providers>
+          <SplashScreen/>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
