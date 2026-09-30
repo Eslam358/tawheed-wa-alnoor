@@ -48,7 +48,7 @@ export default async function HomePage() {
         />
 
 
-            <div className="absolute inset-0 bg-gradient-to-l from-brand-950/35 via-brand-900/15 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-brand-950/50 via-brand-900/20 to-transparent" />
             
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
