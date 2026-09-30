@@ -46,7 +46,9 @@ export default async function HomePage() {
           alt=""
           className="absolute inset-0 h-full w-full object-cover opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />
+        //<div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />
+<div className="absolute inset-0 bg-gradient-to-l from-brand-950/35 via-brand-900/15 to-brand-900/10" />
+            
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-4">
