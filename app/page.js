@@ -39,7 +39,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative bg-brand55-00 text-white overflow-hidden">
+      <section className="relative bg-brand-50 text-white overflow-hidden">
         <img
          // src="/hero-banner.jpg"
             src="/hero_banner1.png"
