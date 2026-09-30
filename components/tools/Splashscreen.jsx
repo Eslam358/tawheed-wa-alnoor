@@ -32,7 +32,7 @@ const arefRuqaa = Aref_Ruqaa({
  *   }
  */
 
-const MIN_VISIBLE_MS = 1600; // أقل مدة ظهور
+const MIN_VISIBLE_MS = 2600; // أقل مدة ظهور
 const FADE_MS = 350; // مدة الاختفاء التدريجي
 
 export default function SplashScreen() {
