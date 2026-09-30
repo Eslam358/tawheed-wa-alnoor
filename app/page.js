@@ -41,7 +41,8 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative bg-brand-900 text-white overflow-hidden">
         <img
-          src="/hero-banner.jpg"
+         // src="/hero-banner.jpg"
+            src="/hero_banner1.png"
           alt=""
           className="absolute inset-0 h-full w-full object-cover opacity-60"
         />
