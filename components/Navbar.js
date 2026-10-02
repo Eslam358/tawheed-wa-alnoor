@@ -96,18 +96,31 @@ export default function Navbar() {
               </Link>
             </nav>
 
+                  <div className="md:hidden flex-grow"/>
+                   <Link
+                href="/cart"
+                className="md:hidden relative flex items-center gap-1 rounded-full  px-3 py-1 hover:bg-brand-700 transition"
+              >
+                🛒 
+                {itemsCount > 0 && (
+                  <span className="absolute -top-2 -left-1 flex h-5 w-5 items-center justify-center rounded-full bg-sale-500 text-[11px] font-bold text-white">
+                    {itemsCount}
+                  </span>
+                )}
+              </Link>
+
             <button
               className="md:hidden text-2xl"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="فتح القائمة"
             >
-              ☰
+                {!menuOpen? "☰" : "✖"} 
             </button>
           </div>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-brand-800 px-4 py-4 space-y-3">
+          <div className="absolute left-0 bg-inherit h-[calc(100vh-64px)] z-[155] overflow-auto w-2/3  md:hidden border-t border-brand-800 px-4 py-4 space-y-3">
             <form onSubmit={handleSearch} className="flex">
               <input
                 value={search}
