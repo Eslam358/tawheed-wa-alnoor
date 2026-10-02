@@ -23,6 +23,14 @@ body {
   width: 8px;
   height: 8px;
 }
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 2px;  
+    height: 2px;
+  }
+}
+
 ::-webkit-scrollbar-thumb {
   background: #1c7a59;
   border-radius: 999px;
@@ -69,5 +77,12 @@ body {
   .swiper-button-next,
   .swiper-button-prev {
     display: flex;
+  }
+}
+
+@media (max-width: 500px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
   }
 }
