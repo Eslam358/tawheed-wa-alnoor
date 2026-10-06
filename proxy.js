@@ -1,8 +1,10 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-export default withAuth(
-  function middleware(req) {
+// ملحوظة: Next.js 16 غيّر اسم الاصطلاح من "middleware" لـ "proxy"
+// (نفس الوظيفة بالظبط، واسم الملف والـ export بس اللي اتغيّروا).
+export const proxy = withAuth(
+  function proxy(req) {
     const token = req.nextauth.token;
     if (
       req.nextUrl.pathname.startsWith("/admin") &&
@@ -20,5 +22,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*", "/checkout", "/orders/:path*"],
+  matcher: ["/admin/:path*", "/checkout", "/orders/:path*", "/account"],
 };

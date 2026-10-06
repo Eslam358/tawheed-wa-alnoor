@@ -1,47 +1,55 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/Product";
+import { requireAdmin } from "@/lib/authHelpers";
+import { apiError } from "@/lib/apiResponse";
 
 export async function GET(request, { params }) {
+  const { id } = await params;
   await dbConnect();
-  const product = await Product.findById(params.id).populate(
-    "category",
-    "name slug"
-  );
+  const product = await Product.findById(id).populate("category", "name slug");
   if (!product) {
-    return NextResponse.json({ error: "المنتج غير موجود" }, { status: 404 });
+    return apiError("المنتج غير موجود", 404);
   }
   return NextResponse.json(product);
 }
 
 export async function PUT(request, { params }) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "غير مصرح لك" }, { status: 403 });
-  }
+  const { id } = await params;
+  const { errorResponse } = await requireAdmin();
+  if (errorResponse) return errorResponse;
+
   await dbConnect();
   const body = await request.json();
-  const product = await Product.findByIdAndUpdate(params.id, body, {
+  const product = await Product.findByIdAndUpdate(id, body, {
     new: true,
     runValidators: true,
   });
   if (!product) {
-    return NextResponse.json({ error: "المنتج غير موجود" }, { status: 404 });
+    return apiError("المنتج غير موجود", 404);
   }
+
+  revalidatePath("/");
+  revalidatePath("/products");
+  revalidatePath(`/products/${id}`);
+
   return NextResponse.json(product);
 }
 
 export async function DELETE(request, { params }) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "غير مصرح لك" }, { status: 403 });
-  }
+  const { id } = await params;
+  const { errorResponse } = await requireAdmin();
+  if (errorResponse) return errorResponse;
+
   await dbConnect();
-  const product = await Product.findByIdAndDelete(params.id);
+  const product = await Product.findByIdAndDelete(id);
   if (!product) {
-    return NextResponse.json({ error: "المنتج غير موجود" }, { status: 404 });
+    return apiError("المنتج غير موجود", 404);
   }
+
+  revalidatePath("/");
+  revalidatePath("/products");
+  revalidatePath(`/products/${id}`);
+
   return NextResponse.json({ message: "تم حذف المنتج" });
 }

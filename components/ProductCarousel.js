@@ -1,5 +1,5 @@
 "use client";
-import "@/app/globals.css"
+
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -18,13 +18,13 @@ export default function ProductCarousel({ products = [] }) {
       slidesPerView={2}
       spaceBetween={14}
       breakpoints={{
-        640: { slidesPerView: 3},
+        640: { slidesPerView: 3 },
         1024: { slidesPerView: 4 },
       }}
       autoplay={{ delay: 2200, disableOnInteraction: false, pauseOnMouseEnter: true }}
       pagination={{ clickable: true }}
       navigation
-      className="!pb-10 !px-4  md:!mx-5"
+      className="!pb-10 !px-4"
     >
       {products.map((product) => {
         const hasDiscount =

@@ -37,6 +37,7 @@ const OrderSchema = new mongoose.Schema(
     itemsPrice: Number,
     shippingPrice: { type: Number, default: 0 },
     totalPrice: Number,
+    stockNote: String,
     status: {
       type: String,
       enum: ["قيد المراجعة", "قيد التجهيز", "تم الشحن", "تم التسليم", "ملغي"],

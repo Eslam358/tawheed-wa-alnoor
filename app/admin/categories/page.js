@@ -44,7 +44,7 @@ export default function AdminCategoriesPage() {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "حدث خطأ");
+      if (!res.ok) throw new Error(data.message || "حدث خطأ");
       resetForm();
       loadCategories();
     } catch (err) {

@@ -2,7 +2,8 @@ import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/Product";
 import ProductCard from "@/components/ProductCard";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+  export const revalidate = 60;
 
 async function getDeals() {
   await dbConnect();

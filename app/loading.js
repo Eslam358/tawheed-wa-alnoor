@@ -1,4 +1,4 @@
-import TNLogo from "@/components/TNLogo";
+import TNLogo from "@/components/common/TNLogo";
 
 export default function Loading() {
   return (

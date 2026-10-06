@@ -4,17 +4,18 @@ import Category from "@/models/Category";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+  export const revalidate = 60;
 
-async function getData(searchParams) {
+async function getData({ search, category }) {
   await dbConnect();
 
   const query = { isActive: true };
-  if (searchParams.search) {
-    query.$text = { $search: searchParams.search };
+  if (search) {
+    query.$text = { $search: search };
   }
-  if (searchParams.category) {
-    query.category = searchParams.category;
+  if (category) {
+    query.category = category;
   }
 
   const [products, categories] = await Promise.all([
@@ -32,13 +33,15 @@ async function getData(searchParams) {
 }
 
 export default async function ProductsPage({ searchParams }) {
-  const { products, categories } = await getData(searchParams);
+  // في Next.js 15+ بقى searchParams عبارة عن Promise لازم تستناه
+  const resolvedSearchParams = await searchParams;
+  const { products, categories } = await getData(resolvedSearchParams);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <h1 className="font-display text-2xl text-brand-900 mb-6">
-        {searchParams.search
-          ? `نتائج البحث عن "${searchParams.search}"`
+        {resolvedSearchParams.search
+          ? `نتائج البحث عن "${resolvedSearchParams.search}"`
           : "كل المنتجات"}
       </h1>
 
@@ -46,7 +49,7 @@ export default async function ProductsPage({ searchParams }) {
         <Link
           href="/products"
           className={`shrink-0 rounded-full px-4 py-1.5 text-sm border ${
-            !searchParams.category
+            !resolvedSearchParams.category
               ? "bg-brand-900 text-sand-50 border-brand-900"
               : "bg-white border-sand-200 text-ink"
           }`}
@@ -58,7 +61,7 @@ export default async function ProductsPage({ searchParams }) {
             key={cat._id}
             href={`/products?category=${cat._id}`}
             className={`shrink-0 rounded-full px-4 py-1.5 text-sm border ${
-              searchParams.category === cat._id
+              resolvedSearchParams.category === cat._id
                 ? "bg-brand-900 text-sand-50 border-brand-900"
                 : "bg-white border-sand-200 text-ink"
             }`}

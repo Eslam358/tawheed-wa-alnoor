@@ -6,7 +6,6 @@ node_modules
 npm-debug.log*
 .DS_Store
  
-# سكريبتات وبيانات محلية بس، مش هترفع على GitHub
 /data
 /scripts
 /New folder

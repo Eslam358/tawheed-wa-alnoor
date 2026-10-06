@@ -22,7 +22,11 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.error) {
-      setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+      setError(
+        res.error === "CredentialsSignin"
+          ? "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+          : res.error
+      );
     } else {
       router.push("/");
       router.refresh();
@@ -67,7 +71,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-brand-900 py-3 font-semibold text-sand-50 hover:bg-brand-800 transition disabled:opacity-60"
+          className="w-full rounded-full bg-brand-900 py-3 font-semibold text-sand-50 hover:bg-brand-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {loading ? "جارِ الدخول..." : "دخول"}
         </button>

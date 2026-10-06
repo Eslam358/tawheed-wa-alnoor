@@ -35,7 +35,7 @@ export default function AccountPage() {
         body: JSON.stringify({ name: profile.name, phone: profile.phone }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.message);
       setSuccess("تم تحديث بياناتك بنجاح");
       update();
     } catch (err) {
@@ -66,7 +66,7 @@ export default function AccountPage() {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.message);
       setSuccess("تم تغيير كلمة المرور بنجاح");
       setPasswords({ currentPassword: "", newPassword: "", confirmPassword: "" });
     } catch (err) {
@@ -132,7 +132,7 @@ export default function AccountPage() {
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-brand-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 transition disabled:opacity-60"
+          className="rounded-md bg-brand-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           حفظ البيانات
         </button>
@@ -172,7 +172,7 @@ export default function AccountPage() {
         <button
           type="submit"
           disabled={saving || !passwords.newPassword}
-          className="rounded-md bg-brand-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 transition disabled:opacity-60"
+          className="rounded-md bg-brand-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           تغيير كلمة المرور
         </button>

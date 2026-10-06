@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Cart from "@/models/Cart";
+import { requireAuth } from "@/lib/authHelpers";
 
-// GET /api/cart -> سلة المستخدم الحالي المحفوظة
+// GET /api/cart -> سلة المستخدم الحالي المحفوظة (سلة فاضية لو زائر غير مسجّل)
 export async function GET() {
-  const session = await getServerSession(authOptions);
+  const { session } = await requireAuth();
   if (!session) {
     return NextResponse.json({ items: [] });
   }
@@ -17,12 +16,10 @@ export async function GET() {
 
 // PUT /api/cart -> حفظ/تحديث سلة المستخدم الحالي بالكامل
 export async function PUT(request) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "من فضلك سجّل الدخول" }, { status: 401 });
-  }
-  await dbConnect();
+  const { session, errorResponse } = await requireAuth();
+  if (errorResponse) return errorResponse;
 
+  await dbConnect();
   const { items } = await request.json();
 
   const cart = await Cart.findOneAndUpdate(

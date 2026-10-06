@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Category from "@/models/Category";
+import { requireAdmin } from "@/lib/authHelpers";
+import { apiError } from "@/lib/apiResponse";
 
 function slugify(text) {
   return text
@@ -19,18 +19,21 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "غير مصرح لك" }, { status: 403 });
-  }
+  const { errorResponse } = await requireAdmin();
+  if (errorResponse) return errorResponse;
+
   await dbConnect();
   const body = await request.json();
   if (!body.name) {
-    return NextResponse.json({ error: "اسم التصنيف مطلوب" }, { status: 400 });
+    return apiError("اسم التصنيف مطلوب", 400);
   }
   const category = await Category.create({
     ...body,
     slug: slugify(body.name),
   });
+
+  revalidatePath("/");
+revalidatePath("/products");
+
   return NextResponse.json(category, { status: 201 });
 }

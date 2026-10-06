@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import AdminSidebar from "@/components/AdminSidebar";
+import { AdminSidebar } from "@/components/Sidebar";
 
 export default async function AdminLayout({ children }) {
   const session = await getServerSession(authOptions);

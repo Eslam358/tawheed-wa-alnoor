@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/Product";
+import { requireAdmin } from "@/lib/authHelpers";
+import { apiError } from "@/lib/apiResponse";
 
 function slugify(text) {
   return text
@@ -44,23 +44,22 @@ export async function GET(request) {
 
 // POST /api/products (أدمن فقط)
 export async function POST(request) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "غير مصرح لك" }, { status: 403 });
-  }
+  const { errorResponse } = await requireAdmin();
+  if (errorResponse) return errorResponse;
 
   await dbConnect();
   const body = await request.json();
 
   if (!body.name || !body.price || !body.category) {
-    return NextResponse.json(
-      { error: "اسم المنتج والسعر والتصنيف مطلوبين" },
-      { status: 400 }
-    );
+    return apiError("اسم المنتج والسعر والتصنيف مطلوبين", 400);
   }
 
   const slug = slugify(body.name) + "-" + Date.now().toString(36);
 
   const product = await Product.create({ ...body, slug });
+
+    revalidatePath("/");
+    revalidatePath("/products");
+
   return NextResponse.json(product, { status: 201 });
 }

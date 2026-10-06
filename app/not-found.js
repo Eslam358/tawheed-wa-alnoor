@@ -1,5 +1,5 @@
 import Link from "next/link";
-import TNLogo from "@/components/TNLogo";
+import TNLogo from "@/components/common/TNLogo";
 
 export default function NotFound() {
   return (

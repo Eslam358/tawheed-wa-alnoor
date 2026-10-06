@@ -4,7 +4,8 @@ import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCart from "@/components/FloatingCart";
-import SplashScreen from "@/components/tools/Splashscreen"
+import { MobileSidebar } from "@/components/Sidebar";
+import PrelineScript from "@/components/PrelineScript";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -23,8 +24,11 @@ export default function RootLayout({ children }) {
     <html lang="ar" dir="rtl" className={cairo.variable}>
       <body className="font-body bg-sand-50 text-ink flex min-h-screen flex-col">
         <Providers>
-          <SplashScreen/>
+          <PrelineScript />
           <Navbar />
+          {/* الـ Sidebar معزولة تماماً عن الـ Navbar: عنصر مستقل بيتفعّل
+              عن طريق أزرار data-hs-overlay من أي مكان في الصفحة */}
+          <MobileSidebar />
           <main className="flex-1">{children}</main>
           <Footer />
           <FloatingCart />

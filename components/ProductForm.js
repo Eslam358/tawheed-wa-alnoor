@@ -59,7 +59,7 @@ export default function ProductForm({ initialProduct = null }) {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "حدث خطأ");
+      if (!res.ok) throw new Error(data.message || "حدث خطأ");
       router.push("/admin/products");
       router.refresh();
     } catch (err) {
@@ -177,7 +177,7 @@ export default function ProductForm({ initialProduct = null }) {
       <button
         type="submit"
         disabled={loading}
-        className="rounded-full bg-brand-900 px-6 py-3 font-semibold text-sand-50 hover:bg-brand-800 transition disabled:opacity-60"
+        className="rounded-full bg-brand-900 px-6 py-3 font-semibold text-sand-50 hover:bg-brand-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {loading ? "جارِ الحفظ..." : isEdit ? "حفظ التعديلات" : "إضافة المنتج"}
       </button>

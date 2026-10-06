@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/components/CartContext";
-import TNLogo from "@/components/TNLogo";
+import TNLogo from "@/components/common/TNLogo";
 
 const FREE_SHIPPING_THRESHOLD = 500;
 

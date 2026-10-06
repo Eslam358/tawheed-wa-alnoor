@@ -1,6 +1,6 @@
 # توحيد والنور 🕌
 
-متجر إلكتروني شامل، مبني بـ **Next.js 14 (App Router)** و **MongoDB/Mongoose**، بتصميم عملي على غرار Noon (أخضر داكن + كريمي)، مع لوحة تحكم أدمن كاملة.
+متجر إلكتروني شامل، مبني بـ **Next.js 16 (App Router) + React 19** و **MongoDB/Mongoose 9**، بتصميم عملي على غرار Noon (أخضر داكن + كريمي) باستخدام **Tailwind CSS v4** ومكونات **Preline UI v5**، مع لوحة تحكم أدمن كاملة.
 
 ## المميزات
 
@@ -15,8 +15,8 @@
 ## التشغيل محلياً
 
 ### 1. المتطلبات
-- Node.js 18+
-- حساب MongoDB (يُفضّل [MongoDB Atlas](https://www.mongodb.com/atlas) المجاني)
+- **Node.js 20.19 أو أحدث** (مطلوب لـ Mongoose 9 وNext.js 16 — تأكد من نسختك بـ `node --version`)
+- حساب MongoDB (يُفضّل [MongoDB Atlas](https://www.mongodb.com/atlas) المجاني، لازم يكون Replica Set — الافتراضي في Atlas، مطلوب عشان الـ transactions)
 
 ### 2. التثبيت
 
@@ -44,7 +44,7 @@ cp .env.example .env.local
 npm run seed
 ```
 
-ده هيضيف 6 تصنيفات و10 منتجات تجريبية.
+ده هيضيف 13 قسم و25 منتج تجريبي، كل منتج بـ 3 صور حقيقية (من [LoremFlickr](https://loremflickr.com)) مرتبطة بنوع المنتج — تقدر تستبدلها لاحقاً بصور منتجاتك الفعلية من لوحة التحكم (حقل "روابط الصور"، افصل بين كل رابط وتاني بفاصلة).
 
 ### 5. تشغيل السيرفر
 
@@ -65,14 +65,30 @@ npm run dev
 ```
 app/
   api/            → كل الـ API routes (منتجات، طلبات، دفع، مصادقة)
-  admin/          → لوحة التحكم (محمية بـ middleware)
+  admin/          → لوحة التحكم (محمية بـ proxy.js)
   products/       → صفحات المتجر (قائمة + تفاصيل)
-  cart, checkout, orders, login, register
-components/       → مكونات مشتركة (Navbar, ProductCard, CartContext...)
-models/           → موديلات Mongoose (User, Product, Category, Order)
-lib/               → الاتصال بقاعدة البيانات وإعدادات NextAuth
+  cart, checkout, orders, login, register, account
+  globals.css     → كل تصميم Tailwind v4 (ألوان، خطوط) — CSS-first، مفيش tailwind.config.js
+components/
+  Navbar/         → Navbar.jsx (حاوية) + Desktop/Mobile/SearchBar/CategoriesBar
+  Sidebar/        → MobileSidebar.jsx (قائمة جانبية Preline، معزولة عن الـ Navbar) + AdminSidebar + SidebarCategories
+  common/         → TNLogo وأي عنصر بصري عام
+  ProductCard, CartContext, ProductForm... (مكونات مستقلة)
+models/           → موديلات Mongoose (User, Product, Category, Order, Cart)
+lib/
+  services/       → منطق الأعمال (orderService: حساب الأسعار، خصم المخزون بـ transaction)
+  validation.js   → Zod schemas
+  authHelpers.js  → requireAuth / requireAdmin
+  rateLimit.js    → in-memory rate limiter
 scripts/seed.js   → بيانات تجريبية
+proxy.js          → (بديل middleware.js في Next.js 16) حماية المسارات المحمية
 ```
+
+### الـ Sidebar (Preline UI)
+
+القائمة الجانبية (`components/Sidebar/MobileSidebar.jsx`) مكوّن مستقل تماماً عن الـ Navbar — بتتفعّل من أي زرار في أي مكان في الموقع عن طريق `data-hs-overlay="#hs-sidebar"` (مكتبة [Preline](https://preline.co) بتتولى الفتح/الإغلاق والـ animation). زرار القائمة موجود في الـ Navbar لكن المكوّن نفسه بيتعرض لوحده في `app/layout.js`.
+
+شريط الأقسام في الـ Navbar (`CategoriesBar.jsx`) بقى `flex-wrap` بدل `overflow-x-auto` — يعني مفيش سكرول أفقي في الـ Navbar خالص.
 
 ## ملاحظات هامة قبل النشر (Production)
 
@@ -80,6 +96,15 @@ scripts/seed.js   → بيانات تجريبية
 - غيّر `NEXTAUTH_URL` و`NEXT_PUBLIC_BASE_URL` لدومينك الحقيقي
 - فعّل صلاحيات IP Whitelist في MongoDB Atlas
 - ارفع الصور على خدمة تخزين سحابي (مثل Cloudinary) بدل روابط خارجية عشوائية
+
+## الأمان وجودة الكود (تحديث)
+
+- **خصم المخزون**: بيحصل تلقائياً وبشكل آمن (atomic transaction) عند تأكيد الطلب — COD وقت إنشاء الطلب، والدفع الإلكتروني وقت تأكيد الدفع عبر Webhook. لو المخزون غير كافٍ، الطلب بيتوقف برسالة واضحة بدل ما يسمح بمخزون سالب.
+- **Rate Limiting**: محاولات تسجيل الدخول (5/15 دقيقة)، إنشاء حساب (3/ساعة)، والدفع الإلكتروني (10/15 دقيقة) — كلها محدودة لكل IP. الحل الحالي in-memory (مناسب لحجم استخدام متوسط)، وجاهز للترقية لـ Upstash Redis لاحقاً (اختياري، شوف `.env.example`).
+- **Validation بـ Zod**: كل البيانات القادمة من المستخدم (تسجيل، عنوان شحن، تعديل الحساب) بتتفحص بدقة (رقم هاتف مصري صحيح، إيميل، كلمة مرور قوية) قبل ما توصل لقاعدة البيانات.
+- **استجابات API موحّدة**: كل الأخطاء بترجع بنفس الشكل `{ success: false, message }`.
+- **lib/services و lib/authHelpers**: منطق الطلبات والتحقق من الصلاحيات متجمّع في مكان واحد بدل ما يتكرر في كل route.
+
 
 ## نشر المشروع
 

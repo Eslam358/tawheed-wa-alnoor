@@ -1,14 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Preline UI (v5 — مبني على Tailwind v4) */
+@import "preline/variants.css";
+@source "../node_modules/preline/dist/*.js";
+@import "preline/theme.css";
+
+/* ====== ألوان ونظام التصميم (بديل tailwind.config.js في Tailwind v4) ====== */
+@theme {
+  --font-display: var(--font-cairo), sans-serif;
+  --font-body: var(--font-cairo), sans-serif;
+
+  --color-brand-950: #0a2e22;
+  --color-brand-900: #0f3d2e;
+  --color-brand-800: #155a43;
+  --color-brand-700: #1c7a59;
+  --color-brand-600: #239c70;
+  --color-brand-500: #2fbe89;
+  --color-brand-200: #bee8d3;
+  --color-brand-100: #e3f5ec;
+  --color-brand-50: #f3fbf7;
+
+  --color-sale-600: #c81e2b;
+  --color-sale-500: #e63946;
+  --color-sale-100: #fbe1e3;
+
+  --color-sand-50: #fbf3e4;
+  --color-sand-100: #f5ead5;
+  --color-sand-200: #ede0c4;
+
+  --color-ink: #231c10;
+}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #fbf3e4;
-  color: #231c10;
+  background-color: var(--color-sand-50);
+  color: var(--color-ink);
 }
 
 .card-hover {
@@ -24,15 +53,15 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1c7a59;
+  background: var(--color-brand-700);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-track {
-  background: #f5ead5;
+  background: var(--color-sand-100);
 }
 
 :focus-visible {
-  outline: 2px solid #1c7a59;
+  outline: 2px solid var(--color-brand-700);
   outline-offset: 2px;
 }
 
@@ -54,20 +83,8 @@ body {
 
 .swiper {
   --swiper-pagination-color: #155a43;
-  --swiper-pagination-bullet-inactive-color: #edE0c4;
+  --swiper-pagination-bullet-inactive-color: #ede0c4;
   --swiper-pagination-bullet-inactive-opacity: 1;
   --swiper-navigation-color: #155a43;
   --swiper-navigation-size: 22px;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-    display: flex;
-  }
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import dbConnect from "@/lib/dbConnect";
-import Order from "@/models/Order";
+import { confirmPaidCardOrder } from "@/lib/services/orderService";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2024-06-20",
@@ -29,10 +29,9 @@ export async function POST(request) {
 
     if (orderId) {
       await dbConnect();
-      await Order.findByIdAndUpdate(orderId, {
-        paymentStatus: "paid",
-        status: "قيد التجهيز",
-      });
+      // بيخصم المخزون فعلياً دلوقتي (أول مرة) ويحدّث حالة الطلب،
+      // كل ده جوه transaction واحدة لضمان عدم تضارب المخزون.
+      await confirmPaidCardOrder(orderId);
     }
   }
 

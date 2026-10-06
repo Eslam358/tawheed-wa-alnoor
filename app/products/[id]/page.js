@@ -3,7 +3,8 @@ import Product from "@/models/Product";
 import { notFound } from "next/navigation";
 import ProductDetailClient from "./ProductDetailClient";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 async function getProduct(id) {
   await dbConnect();
@@ -17,7 +18,8 @@ async function getProduct(id) {
 }
 
 export default async function ProductPage({ params }) {
-  const product = await getProduct(params.id);
+  const { id } = await params;
+  const product = await getProduct(id);
   if (!product) return notFound();
 
   return <ProductDetailClient product={product} />;

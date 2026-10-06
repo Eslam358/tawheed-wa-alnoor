@@ -5,9 +5,10 @@ import Category from "@/models/Category";
 import ProductCard from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import CategoryCard from "@/components/CategoryCard";
-import TNLogo from "@/components/TNLogo";
+import TNLogo from "@/components/common/TNLogo";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+  export const revalidate = 60;
 
 async function getData() {
   await dbConnect();
@@ -36,28 +37,25 @@ async function getData() {
 
 export default async function HomePage() {
   const { featured, deals, categories } = await getData();
+
   return (
     <div>
       {/* Hero */}
-      <section className="relative bg-brand-100 text-white overflow-hidden">
+      <section className="relative bg-brand-900 text-white overflow-hidden">
         <img
-         // src="/hero-banner.jpg"
-            src="/hero_banner1.png"
+          src="/hero-banner.jpg"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-80"
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
         />
-          {/*<div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />*/}
-<div className="absolute inset-0 bg-gradient-to-l from-brand-950/55 via-brand-900/30 to-brand-900/20" />
-          {/*  <div className="absolute inset-0 bg-gradient-to-l from-brand-950/60 via-brand-900/30 to-transparent" />*/}
-            
+        <div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
-         {/*   <div className="flex items-center gap-2 mb-4">
-           <TNLogo size={34} className="rounded-lg" />*/}
-  {/* <span className="text-sm text-brand-200 font-medium">
-                 مكان حبِناه وكبرنا معاه
+            <div className="flex items-center gap-2 mb-4">
+              <TNLogo size={34} className="rounded-lg" />
+              <span className="text-sm text-brand-200 font-medium">
+                التوحيد والنور — مكان عِشناه وكبرنا معاه
               </span>
-            </div>*/}
+            </div>
             <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
               خصومات تصل إلى ٥٠٪
             </h1>
