@@ -31,9 +31,5 @@ export async function POST(request) {
     ...body,
     slug: slugify(body.name),
   });
-
-  revalidatePath("/");
-revalidatePath("/products");
-
   return NextResponse.json(category, { status: 201 });
 }

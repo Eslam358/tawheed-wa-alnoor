@@ -11,10 +11,6 @@ export async function PUT(request, { params }) {
   await dbConnect();
   const body = await request.json();
   const category = await Category.findByIdAndUpdate(id, body, { new: true });
-
-  revalidatePath("/");
-revalidatePath("/products");
-
   return NextResponse.json(category);
 }
 
@@ -25,9 +21,5 @@ export async function DELETE(request, { params }) {
 
   await dbConnect();
   await Category.findByIdAndDelete(id);
-
-  revalidatePath("/");
-revalidatePath("/products");
-
   return NextResponse.json({ message: "تم حذف التصنيف" });
 }

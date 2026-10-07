@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"
 import { useSession, signOut } from "next-auth/react";
 import TNLogo from "@/components/common/TNLogo";
 import SidebarCategories from "./SidebarCategories";
@@ -21,6 +22,7 @@ export default function MobileSidebar() {
       <div className="flex items-center justify-between px-4 py-4 border-b border-sand-200">
         <Link href="/" className="flex items-center gap-2">
           <TNLogo size={32} className="rounded-lg" />
+      
           <span className="font-display font-extrabold text-brand-900">
             التوحيد والنور
           </span>

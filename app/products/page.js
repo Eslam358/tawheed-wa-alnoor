@@ -4,15 +4,21 @@ import Category from "@/models/Category";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 
-// export const dynamic = "force-dynamic";
-  export const revalidate = 60;
+export const dynamic = "force-dynamic";
+
+// بيهرّب الرموز الخاصة بالـ regex عشان البحث يشتغل مظبوط لو المستخدم كتب
+// رمز زي ( أو + من غير ما يبوّظ الاستعلام
+function escapeRegex(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 async function getData({ search, category }) {
   await dbConnect();
 
   const query = { isActive: true };
   if (search) {
-    query.$text = { $search: search };
+    const pattern = new RegExp(escapeRegex(search), "i");
+    query.$or = [{ name: pattern }, { description: pattern }];
   }
   if (category) {
     query.category = category;

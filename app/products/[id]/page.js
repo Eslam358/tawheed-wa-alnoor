@@ -3,8 +3,7 @@ import Product from "@/models/Product";
 import { notFound } from "next/navigation";
 import ProductDetailClient from "./ProductDetailClient";
 
-// export const dynamic = "force-dynamic";
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 async function getProduct(id) {
   await dbConnect();

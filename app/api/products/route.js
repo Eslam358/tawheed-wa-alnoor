@@ -4,6 +4,12 @@ import Product from "@/models/Product";
 import { requireAdmin } from "@/lib/authHelpers";
 import { apiError } from "@/lib/apiResponse";
 
+// بيهرّب الرموز الخاصة بالـ regex عشان البحث يشتغل مظبوط لو المستخدم كتب
+// رمز زي ( أو + من غير ما يبوّظ الاستعلام
+function escapeRegex(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function slugify(text) {
   return text
     .toString()
@@ -23,7 +29,10 @@ export async function GET(request) {
   const limit = parseInt(searchParams.get("limit") || "12", 10);
 
   const query = { isActive: true };
-  if (search) query.$text = { $search: search };
+  if (search) {
+    const pattern = new RegExp(escapeRegex(search), "i");
+    query.$or = [{ name: pattern }, { description: pattern }];
+  }
   if (category) query.category = category;
   if (featured === "true") query.isFeatured = true;
 
@@ -57,9 +66,5 @@ export async function POST(request) {
   const slug = slugify(body.name) + "-" + Date.now().toString(36);
 
   const product = await Product.create({ ...body, slug });
-
-    revalidatePath("/");
-    revalidatePath("/products");
-
   return NextResponse.json(product, { status: 201 });
 }

@@ -7,8 +7,7 @@ import ProductCarousel from "@/components/ProductCarousel";
 import CategoryCard from "@/components/CategoryCard";
 import TNLogo from "@/components/common/TNLogo";
 
-// export const dynamic = "force-dynamic";
-  export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 async function getData() {
   await dbConnect();
@@ -43,19 +42,14 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative bg-brand-900 text-white overflow-hidden">
         <img
-          src="/hero-banner.jpg"
+          src="/hero-banner-1.png"
           alt=""
           className="absolute inset-0 h-full w-full object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-brand-950/95 via-brand-900/85 to-brand-900/40" />
+        <div className="absolute inset-0 bg-gradient-to-l from-brand-950/75 via-brand-900/35 to-brand-900/0" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 md:py-20">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-4">
-              <TNLogo size={34} className="rounded-lg" />
-              <span className="text-sm text-brand-200 font-medium">
-                التوحيد والنور — مكان عِشناه وكبرنا معاه
-              </span>
-            </div>
+         
             <h1 className="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-3">
               خصومات تصل إلى ٥٠٪
             </h1>

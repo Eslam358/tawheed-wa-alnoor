@@ -28,11 +28,6 @@ export async function PUT(request, { params }) {
   if (!product) {
     return apiError("المنتج غير موجود", 404);
   }
-
-  revalidatePath("/");
-  revalidatePath("/products");
-  revalidatePath(`/products/${id}`);
-
   return NextResponse.json(product);
 }
 
@@ -46,10 +41,5 @@ export async function DELETE(request, { params }) {
   if (!product) {
     return apiError("المنتج غير موجود", 404);
   }
-
-  revalidatePath("/");
-  revalidatePath("/products");
-  revalidatePath(`/products/${id}`);
-
   return NextResponse.json({ message: "تم حذف المنتج" });
 }
