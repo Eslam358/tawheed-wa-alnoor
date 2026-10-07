@@ -5,11 +5,14 @@ import { requireAuth } from "@/lib/authHelpers";
 import { apiError } from "@/lib/apiResponse";
 import { checkoutSchema, formatZodError } from "@/lib/validation";
 import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
-import { createPendingCardOrder, InsufficientStockError } from "@/lib/services/orderService";
+import {
+  createPendingCardOrder,
+  InsufficientStockError,
+} from "@/lib/services/orderService";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2024-06-20",
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+//   apiVersion: "2024-06-20",
+// });
 
 const CHECKOUT_LIMIT = 10;
 const CHECKOUT_WINDOW_MS = 15 * 60 * 1000; // 15 دقيقة
@@ -20,11 +23,16 @@ export async function POST(request) {
   if (errorResponse) return errorResponse;
 
   const ip = getClientIp(request);
-  const rateLimit = checkRateLimit("checkout", ip, CHECKOUT_LIMIT, CHECKOUT_WINDOW_MS);
+  const rateLimit = checkRateLimit(
+    "checkout",
+    ip,
+    CHECKOUT_LIMIT,
+    CHECKOUT_WINDOW_MS,
+  );
   if (!rateLimit.allowed) {
     return apiError(
       `محاولات كتير. حاول تاني بعد ${Math.ceil(rateLimit.retryAfterSeconds / 60)} دقيقة`,
-      429
+      429,
     );
   }
 
@@ -73,6 +81,14 @@ export async function POST(request) {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return apiError("الدفع الإلكتروني غير متاح حاليًا", 503);
+  }
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2024-06-20",
+  });
 
   try {
     const checkoutSession = await stripe.checkout.sessions.create({

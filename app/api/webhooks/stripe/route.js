@@ -3,13 +3,25 @@ import Stripe from "stripe";
 import dbConnect from "@/lib/dbConnect";
 import { confirmPaidCardOrder } from "@/lib/services/orderService";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2024-06-20",
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+//   apiVersion: "2024-06-20",
+// });
+
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2024-06-20",
+    })
+  : null;
 
 export async function POST(request) {
+  
+  return NextResponse.json(
+  { message: "Stripe webhook غير مفعّل حاليًا" },
+  { status: 503 }
+);
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
+
 
   let event;
   try {
