@@ -64,8 +64,13 @@ export default function Navbar() {
             </Link>
 
             {/* البحث + فلتر القسم (ديسكتوب) */}
-            <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl">
-              <label htmlFor="search-category" className="sr-only">القسم</label>
+            <form
+              onSubmit={handleSearch}
+              className="hidden md:flex flex-1 max-w-2xl"
+            >
+              <label htmlFor="search-category" className="sr-only">
+                القسم
+              </label>
               <select
                 id="search-category"
                 value={searchCategory}
@@ -79,7 +84,9 @@ export default function Navbar() {
                   </option>
                 ))}
               </select>
-              <label htmlFor="site-search" className="sr-only">ابحث عن منتجات</label>
+              <label htmlFor="site-search" className="sr-only">
+                ابحث عن منتجات
+              </label>
               <input
                 id="site-search"
                 value={search}
@@ -106,18 +113,34 @@ export default function Navbar() {
               )}
               {session ? (
                 <>
-                  <Link href="/orders" className="hover:text-brand-200 transition">
+                  <Link
+                    href="/orders"
+                    className="hover:text-brand-200 transition"
+                  >
                     طلباتي
                   </Link>
-                  <Link href="/account" className="hover:text-brand-200 transition">
-                    👤 حسابي
+                  <Link
+                    href="/account"
+                    className= "flex hover:text-brand-200 transition"
+                  >
+                    {/* 👤  */}
+
+                    {session.user.image ? (
+                      <span className="w-5 h-5 inline-block rounded-full overflow-hidden ml-2">
+                        <img src={session.user.image} />
+                      </span>
+                    ) : (
+                      "👤"
+                    )}
+                    {session.user.name ? session.user.name : " حسابي"}
+
                   </Link>
-                  <button
+                  {/* <button
                     onClick={() => signOut({ callbackUrl: "/" })}
                     className="hover:text-brand-200 transition"
                   >
                     خروج
-                  </button>
+                  </button> */}
                 </>
               ) : (
                 <Link href="/login" className="hover:text-brand-200 transition">
@@ -156,7 +179,11 @@ export default function Navbar() {
               >
                 🔍
               </button>
-              <Link href="/cart" className="relative text-xl" aria-label="السلة">
+              <Link
+                href="/cart"
+                className="relative text-xl"
+                aria-label="السلة"
+              >
                 🛒
                 {itemsCount > 0 && (
                   <span className="absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-sale-500 text-[11px] font-bold text-white">
@@ -207,7 +234,10 @@ export default function Navbar() {
         <div className="hidden md:block bg-sand-50 border-b border-sand-200">
           <div className="mx-auto max-w-7xl px-4">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-1 py-2.5 text-sm text-ink/80">
-              <Link href="/products" className="font-medium hover:text-brand-700">
+              <Link
+                href="/products"
+                className="font-medium hover:text-brand-700"
+              >
                 كل الأقسام
               </Link>
               {visibleCategories.map((cat) => (
@@ -219,7 +249,10 @@ export default function Navbar() {
                   {cat.name}
                 </Link>
               ))}
-              <Link href="/offers" className="font-bold text-sale-500 hover:text-sale-600 transition">
+              <Link
+                href="/offers"
+                className="font-bold text-sale-500 hover:text-sale-600 transition"
+              >
                 🔥 العروض
               </Link>
             </div>

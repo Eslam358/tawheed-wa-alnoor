@@ -76,9 +76,15 @@ export default function MobileSidebar() {
             <Link
               href="/account"
               data-hs-overlay={`#${SIDEBAR_ID}`}
-              className="block rounded-md px-3 py-2 text-ink hover:bg-sand-100"
+              className="flex rounded-md px-3 py-2 text-ink hover:bg-sand-100 "
             >
-              👤 إعدادات الحساب
+            { session.user.image ? <span className="w-5 h-5 inline-block rounded-full overflow-hidden ml-2">
+                <img src={session.user.image} />
+              </span>:<>
+              👤
+              </>
+              }
+              {session.user.name ?  session.user.name :  " إعدادات الحساب"}
             </Link>
             {session.user?.role === "admin" && (
               <Link

@@ -33,6 +33,14 @@
 }
 
 
+
+
+
+
+.bg-white{
+  background-color:#fff;
+}
+
 html {
   scroll-behavior: smooth;
 }
